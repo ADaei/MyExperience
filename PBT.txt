@@ -1,16 +1,32 @@
 [Software Assistant Manager]
 1. NB-IoT project establish (from zero) experience
     1.1. NB-IoT module/MCU evaluation
-    1.2. Product innovation (Plug & Play, and others)
+    1.2. Product innovation (Plug & Connect)
     1.3. SDK creation (from zero)
         1.3.1 HW interface (SPI/I2C/UART)
         1.3.2 MCU porting (timer, memory, data type)
         1.3.3 Layering & hook
         1.3.4 FSM/scenario creation
         1.3.5 Stability (log, alarm, others)
- 2. HGU porject establish
-    1.1 TR-069 experience (easyCWMP + GenieACS)
-    1.2 Product innovation (Product location light, bluetooth headset on VoIP, and others)
-    1.3 GPON/Wi-Fi/VoIP/Instrument evaluation.
-    1.4 Realek SDK experience.
- 3. 2 engineer management experience.
+        1.3.6 timer and others
+    1.4. KEIL C51 experience (8051 programming)
+2. HGU porject establish
+    1.1. TR-069 system establish experience (easyCWMP + GenieACS)
+    1.2. Product innovation (Product location light, Phone on HGU, and others)
+    1.3. GPON/Wi-Fi/VoIP/Instrument evaluation.
+    1.4. Realek SDK experience.
+3. Software department/Project manage experience.
+    3.1. 2-? engineer management experience
+    3.2. Manpower evaluation experience
+    3.3. GIT/SVN version control experience
+    3.4. Regular meeting/action item tracking experience.
+    3.5. Gantt Chart experience.
+4. QA experience
+    5.1. HQC Testplan management experience
+    5.2. SQC Testplan experience
+5. Other paper work experience
+    6.1. SBIR experience
+    6.2. Patent draft experience
+X. TBD experience
+    X.1. FAE experience
+    X.2. Production line establish experience.
