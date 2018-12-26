@@ -1,4 +1,6 @@
 [Software Assistant Manager]
+0. Technical experience
+    1.1 ucLinux
 1. NB-IoT project establish (from zero) experience
     1.1. NB-IoT module/MCU evaluation
     1.2. Product innovation (Plug & Connect)
@@ -18,7 +20,7 @@
 3. Software department/Project manage experience.
     3.1. 2-? engineer management experience
     3.2. Manpower evaluation experience
-    3.3. GIT/SVN version control experience
+    3.3. GIT/SVN version control server establish experience
     3.4. Regular meeting/action item tracking experience.
     3.5. Gantt Chart experience.
 4. QA experience
@@ -30,3 +32,6 @@
 X. TBD experience
     X.1. FAE experience
     X.2. Production line establish experience.
+    X.3. PON verification with instrument experience.
+    X.4. OMCI
+    X.5. TR-069
