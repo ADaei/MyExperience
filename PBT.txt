@@ -38,3 +38,15 @@ X. TBD experience
     X.3. PON verification with instrument experience.
     X.4. OMCI
     X.5. TR-069
+
+[成長原則]
+.探索陌生程式語言
+    .growth-mindset (成長心態)
+    .optimize for learning (樂於學習)
+.精通debug
+.開發節省時間的工具
+.優化重複性工作(EX:快捷鍵)
+.發展系統性思考模式
+.有條理又淺顯易懂的溝通能力
+.軟體工程及系統架構的概念
+.硬體架構的理解
