@@ -1,0 +1,4 @@
+==Partial==
+MT6632/X30 Smart Phone MP support
+--魅族Pro 7 series
+--美圖V6
