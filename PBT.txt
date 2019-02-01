@@ -32,6 +32,11 @@
     5.2. Patent draft experience
 6. Version control experience
     6.1. SVN version control system establish experience
+7. Optical Instrument Experience
+    .DCA (Digital Communication Analyzer Oscilloscopes) 數位通訊分析儀(DCA)示波器，用於分析光波
+    .CDR (Clock Data Recovery)  用於將TX出來的光Data還原成RX端可分析讀取的狀態
+    .Optical Power Meter        光功率調整器，用於調整光輸出功率
+    .Optical Attenuator         光衰減器，用於模擬光衰減
 X. TBD experience
     X.1. FAE experience
     X.2. Production line establish experience.
