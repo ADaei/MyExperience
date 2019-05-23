@@ -1,0 +1,10 @@
+[Specification]
+  G.9903 (G3-PLC Alliance)
+  6LoWPAN
+  IEEE802.15.4
+  
+[OS]
+  FreeRTOS
+
+[Product]
+  Smart Meter (PLC + sub-1G)
