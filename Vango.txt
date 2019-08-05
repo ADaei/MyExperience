@@ -1,10 +1,16 @@
 [Specification]
   G.9903 (G3-PLC Alliance)
   6LoWPAN
-  IEEE802.15.4
+  IEEE802.15.4/IEEE802.15.4g
   
 [OS]
   FreeRTOS
 
 [Product]
   Smart Meter (PLC + sub-1G)
+
+[Work Experience]
+  Mesh routing
+    Improve routing path selection algorithm (category into alive/dead/unstable link)
+  Dual mode
+    SW MAC implementation (media select/back-off/retry/ack/...)
