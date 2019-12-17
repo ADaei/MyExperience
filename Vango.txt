@@ -2,15 +2,23 @@
   G.9903 (G3-PLC Alliance)
   6LoWPAN
   IEEE802.15.4/IEEE802.15.4g
+  Wi-Sun(FAN)
   
 [OS]
   FreeRTOS
 
 [Product]
-  Smart Meter (PLC + sub-1G)
+  Smart Meter (PLC: V6306)
+  Dual Mode Meter (PLC + sub-1G/Wi-Sun)
+
+[IC]
+  TI cc1200 (RF transceiver) porting
 
 [Work Experience]
   Mesh routing
     Improve routing path selection algorithm (category into alive/dead/unstable link)
-  Dual mode
-    SW MAC implementation (media select/back-off/retry/ack/...)
+  Dual mode Development
+    Multi-MAC control
+    SW MAC implementation (CSMA/ARQ/TRX/...)
+    PHY/Peripheral porting
+    RF IC porting
