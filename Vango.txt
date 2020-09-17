@@ -17,13 +17,18 @@
   SiliconLab Si4463 (RF transceiver) porting
 
 [Work Experience]
-  Mesh routing imrpove
-    Improve routing path selection algorithm (category into alive/dead/unstable link)
-
   Propietory dual-mode product development
-    Multi-MAC control
-    SW MAC implementation (CSMA/ARQ/TRX/...)
-    PHY/Peripheral porting
-    RF IC porting
+    Multi-MAC control layer development
+    MAC Layer development (SW MAC with full function like CSMA/ARQ/TRX/...)
+    PHY Layer development (SW PHY include PPDU compose/IFS)
+    RF IC driver development (configuration/control)
+    Peripheral porting
+    SW LQI calculation
+    
+  System improvment
+    Improve mesh routing path selection algorithm
+      -- category node into alive/dead/unstable link for selection reference
+      -- category node into dual-mode/single-mode for selection reference
+    Add SPI FIFO control to resolve overflow issue.
 
   G3-HYB SPEC certification/implementation/product landing
