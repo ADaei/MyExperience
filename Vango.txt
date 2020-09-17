@@ -1,5 +1,5 @@
 [Specification]
-  G.9903 (G3-PLC Alliance)
+  G.9903 2006/2015 (for G3-PLC 201708/G3-HYB 2020)
   6LoWPAN
   IEEE802.15.4/IEEE802.15.4g
   Wi-Sun(FAN)
@@ -8,17 +8,20 @@
   FreeRTOS
 
 [Product]
-  Smart Meter (PLC: V6306)
-  Dual Mode Meter (PLC + sub-1G/Wi-Sun)
+  Magpie_E (V6306/V6300)
+  Magpie_E + CC1200/Si4463 (Propietory Dual-Mode)
+  Pheonix (V6211)
 
 [IC]
-  TI cc1200 (RF transceiver) porting
+  TI CC1200 (RF transceiver) porting
+  SiliconLab Si4463 (RF transceiver) porting
 
 [Work Experience]
   Mesh routing
     Improve routing path selection algorithm (category into alive/dead/unstable link)
-  Dual mode Development
+  Propietory Dual mode Development
     Multi-MAC control
     SW MAC implementation (CSMA/ARQ/TRX/...)
     PHY/Peripheral porting
     RF IC porting
+  G3-HYB SPEC certification/implementation/product landing
