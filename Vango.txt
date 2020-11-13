@@ -1,27 +1,36 @@
 [Specification]
-  G.9903 2006/2015 (for G3-PLC 201708/G3-HYB 2020)
-  6LoWPAN
-  IEEE802.15.4/IEEE802.15.4g
-  Wi-Sun(FAN)
+  G.9903 (6LoWPAN) 2006/2015
+  --> G3-PLC 201708
+  --> G3-HYB 2020
+  IEEE802.15.4/4g
+  --> Wi-Sun(PHY)
   
 [OS]
   FreeRTOS
 
 [Product]
   Magpie_E (V6306/V6300)
-  Magpie_E + CC1200/Si4463 (Propietory Dual-Mode)
+  Magpie_E + RF transceiver
   Pheonix (V6211)
 
-[IC]
-  TI CC1200 (RF transceiver) porting
-  SiliconLab Si4463 (RF transceiver) porting
+[RF transceiver IC porting]
+  TI CC1200
+  SiliconLab Si4463
 
 [Work Experience]
-  Propietory dual-mode product development
-    Multi-MAC control layer development
-    MAC Layer development (SW MAC with full function like CSMA/ARQ/TRX/...)
-    PHY Layer development (SW PHY include PPDU compose/IFS)
-    RF IC driver development (configuration/control)
+  G3-HYB SPEC upgrade
+    Leader of SPEC upgrade plan
+    Director of SW PHY/Radio/Peripheral
+    Developer of G3-PLC SW Refactoring for upgrade adaptation
+    Developer of G3-HYB SW Architecture
+    Developer of SW Hybrid/MAC Layer
+    
+  Propietory dual-mode (RF) product development
+    Leader of RF functionality upgrade plan
+    Developer of SW Multi-MAC control layer
+    Developer of SW MAC Layer (Full function include CSMA/ARQ/TRX/...)
+    Developer of SW PHY Layer (include PPDU compose/IFS)
+    Developer of RF IC driver
     Peripheral porting
     SW LQI calculation
     
@@ -29,6 +38,4 @@
     Improve mesh routing path selection algorithm
       -- category node into alive/dead/unstable link for selection reference
       -- category node into dual-mode/single-mode for selection reference
-    Add SPI FIFO control to resolve overflow issue.
-
-  G3-HYB SPEC certification/implementation/product landing
+    Add SPI FIFO control to resolve data lost issue.
