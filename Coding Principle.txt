@@ -1,0 +1,23 @@
+https://en.wikipedia.org/wiki/SOLID
+
+  SRP: Single-responsibility principle : 單一職責原則
+    一個物件應該只有一個任務
+    ------------------------------------------------
+  OCP: Open–closed principle : 開放封閉原則
+    一個實體(class, template, function)可以被拓展(增加新功能、新程式碼)，但不能被修改(原本的程式碼不該因拓展而被修改)
+    ------------------------------------------------
+  LSP: Liskov substitution principle : Liskov替換原則
+    子類別可以替換父類別，程式仍正常運行
+    ------------------------------------------------
+  ISP: Interface segregation principle : 介面隔離原則
+    多個client-specific的介面比一個通用介面好
+    ------------------------------------------------
+  DPI: Dependency inversion principle : 依賴反轉原則
+    高層次的模組不應該依賴於低層次的模組，兩者都應該依賴於抽象介面
+    抽象介面不應該依賴於具體實現。而具體實現則應該依賴於抽象介面
+    ------------------------------------------------
+
+https://zh.wikipedia.org/zh-tw/%E5%BE%97%E5%A2%A8%E5%BF%92%E8%80%B3%E5%AE%9A%E5%BE%8B
+
+  LoD : Law of Demeter (Principle of Least Knowledge) : 最少知識原則
+    每個物件應該對其他物件，盡可能有最低的了解和溝通
