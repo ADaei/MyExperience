@@ -1,0 +1,84 @@
+https://leetcode.com/tag/tree/
+https://leetcode.com/tag/dynamic-programming/
+
+https://leetcode.com/problems/maximum-subarray/
+
+int maxSubArray(int* nums, int numsSize){   
+
+    #define EndOfString (i<numsSize)
+
+    int i;
+    int max_single = nums[0];
+    int max_sum;
+    int max_sum_cur;
+    int max_sum_cur_Negative;
+    int max_sum_cur_Positive;
+    
+    for (i=0; EndOfString; i++)
+    {
+        //remove first N sequence
+        if (nums[i] > 0)
+            break;
+
+        if (max_single < nums[i])
+            max_single = nums[i];
+    }
+    
+    if (EndOfString)
+    {
+        //NOT all negative string;
+        for (max_sum_cur_Positive = 0; i<numsSize; i++)
+        {
+            if (nums[i] < 0) {break;}          
+            max_sum_cur_Positive += nums[i];
+        }
+        
+        if (EndOfString)
+            return max_sum_cur_Positive;
+
+        max_sum = max_sum_cur_Positive;
+        max_sum_cur = max_sum_cur_Positive;
+        do
+        {
+            for (max_sum_cur_Negative = 0; i<numsSize; i++)
+            {
+                if (nums[i] > 0) {break;}           
+                max_sum_cur_Negative += nums[i];
+            }
+            
+            if (EndOfString)
+                break;
+            
+            for (max_sum_cur_Positive = 0; i<numsSize; i++)
+            {
+                if (nums[i] < 0) {break;}           
+                max_sum_cur_Positive += nums[i];
+            }
+            
+            /* Merge Check */
+            if ((max_sum_cur_Negative + max_sum_cur_Positive) > 0)
+            {
+                max_sum_cur += max_sum_cur_Negative;
+                max_sum_cur += max_sum_cur_Positive;
+            }
+            else
+            {
+                //new continuous string
+                if (max_sum < max_sum_cur)
+                    max_sum = max_sum_cur;
+
+                max_sum_cur = max_sum_cur_Positive;
+            }
+                        
+        } while (!EndOfString);
+       
+        if (max_sum > max_sum_cur)
+            return max_sum;
+        else
+            return max_sum_cur;
+    }
+    else
+    {
+        return max_single;
+    }
+}
