@@ -3,82 +3,63 @@ https://leetcode.com/tag/dynamic-programming/
 
 https://leetcode.com/problems/maximum-subarray/
 
-int maxSubArray(int* nums, int numsSize){   
-
-    #define EndOfString (i<numsSize)
-
-    int i;
-    int max_single = nums[0];
-    int max_sum;
-    int max_sum_cur;
-    int max_sum_cur_Negative;
-    int max_sum_cur_Positive;
+int mergeContinue(int* nums, int numsSize)
+{
+    int i = 0;
+    int w = 0;
+    int sum;
+    /* skip HEAD N */
+    for (; i < numsSize && nums[i] > 0; i++);
     
-    for (i=0; EndOfString; i++)
+    do
     {
-        //remove first N sequence
-        if (nums[i] > 0)
-            break;
+        //calculate P
+        sum = 0;
+        while (i < numsSize && nums[i] >= 0) {sum += nums[i++];}
+        nums[w++] = sum;
 
-        if (max_single < nums[i])
-            max_single = nums[i];
-    }
+        //calculate N
+        sum = 0;
+        while (i < numsSize && nums[i] <= 0) {sum += nums[i++];}
+        nums[w++] = sum;
+
+    } while (i < numsSize);
+
+    return w;
+}
+
+int mergePNP(int* nums, int numsSize)
+{
+    int i = 2;
+    int w = 0;
+    int subMax;
     
-    if (EndOfString)
+    do
     {
-        //NOT all negative string;
-        for (max_sum_cur_Positive = 0; i<numsSize; i++)
+        if ((nums[i-2] + nums[i-1]) > 0 &&
+            (nums[i] + nums[i-1]) > 0)
         {
-            if (nums[i] < 0) {break;}          
-            max_sum_cur_Positive += nums[i];
+            //merge
+            nums[w++] = nums[i] + nums[i-1] + nums[i-2];
         }
-        
-        if (EndOfString)
-            return max_sum_cur_Positive;
-
-        max_sum = max_sum_cur_Positive;
-        max_sum_cur = max_sum_cur_Positive;
-        do
-        {
-            for (max_sum_cur_Negative = 0; i<numsSize; i++)
-            {
-                if (nums[i] > 0) {break;}           
-                max_sum_cur_Negative += nums[i];
-            }
-            
-            if (EndOfString)
-                break;
-            
-            for (max_sum_cur_Positive = 0; i<numsSize; i++)
-            {
-                if (nums[i] < 0) {break;}           
-                max_sum_cur_Positive += nums[i];
-            }
-            
-            /* Merge Check */
-            if ((max_sum_cur_Negative + max_sum_cur_Positive) > 0)
-            {
-                max_sum_cur += max_sum_cur_Negative;
-                max_sum_cur += max_sum_cur_Positive;
-            }
-            else
-            {
-                //new continuous string
-                if (max_sum < max_sum_cur)
-                    max_sum = max_sum_cur;
-
-                max_sum_cur = max_sum_cur_Positive;
-            }
-                        
-        } while (!EndOfString);
-       
-        if (max_sum > max_sum_cur)
-            return max_sum;
         else
-            return max_sum_cur;
+        {
+            break;
+        }
+    } while (i < numsSize);
+    
+    if (i < numsSize)
+    {
+        subMax = mergePNP(&nums[i], (numsSize - i));
+        return (nums[0] > subMax) ? nums[0] : subMax;
     }
     else
-    {
-        return max_single;
-    }
+        return nums[0];
+}
+
+int maxSubArray(int* nums, int numsSize)
+{   
+    
+    int merge_len = mergeContinue(nums, numsSize);
+    return mergePNP(nums, merge_len);
 }
