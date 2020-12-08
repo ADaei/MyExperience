@@ -1,65 +1,14 @@
 https://leetcode.com/tag/tree/
 https://leetcode.com/tag/dynamic-programming/
 
-https://leetcode.com/problems/maximum-subarray/
+    https://leetcode.com/problems/maximum-subarray/
+    Solution Idea (NOT verified)
+    1. Skip continueously N at HEAD & TAIL
+        -NOTE: save max N for answer of all-negative string
+    2. Merge all continueously N/P, to be a P/PNP/PNPNP/... string
+        -Controversial : Is this a nessary step ?
+    3. For all PNP, if both P add N > 0, merge PNP into P
+        -Recursively do this because some N could be merge after other N merged.
+        -Be careful to termination condition
+    4. Find the largest P in the string.
 
-int mergeContinue(int* nums, int numsSize)
-{
-    int i = 0;
-    int w = 0;
-    int sum;
-    /* skip HEAD N */
-    for (; i < numsSize && nums[i] > 0; i++);
-    
-    do
-    {
-        //calculate P
-        sum = 0;
-        while (i < numsSize && nums[i] >= 0) {sum += nums[i++];}
-        nums[w++] = sum;
-
-        //calculate N
-        sum = 0;
-        while (i < numsSize && nums[i] <= 0) {sum += nums[i++];}
-        nums[w++] = sum;
-
-    } while (i < numsSize);
-
-    return w;
-}
-
-int mergePNP(int* nums, int numsSize)
-{
-    int i = 2;
-    int w = 0;
-    int subMax;
-    
-    do
-    {
-        if ((nums[i-2] + nums[i-1]) > 0 &&
-            (nums[i] + nums[i-1]) > 0)
-        {
-            //merge
-            nums[w++] = nums[i] + nums[i-1] + nums[i-2];
-        }
-        else
-        {
-            break;
-        }
-    } while (i < numsSize);
-    
-    if (i < numsSize)
-    {
-        subMax = mergePNP(&nums[i], (numsSize - i));
-        return (nums[0] > subMax) ? nums[0] : subMax;
-    }
-    else
-        return nums[0];
-}
-
-int maxSubArray(int* nums, int numsSize)
-{   
-    
-    int merge_len = mergeContinue(nums, numsSize);
-    return mergePNP(nums, merge_len);
-}
