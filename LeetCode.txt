@@ -5,6 +5,9 @@ https://leetcode.com/problems/maximum-subarray/
 #define _merge_P_from_left(P, idxL, idxR, nums) for (P = 0; idxL < idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
 #define _merge_N_from_left(N, idxL, idxR, nums) for (N = 0; idxL < idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
 
+#define _merge_P_from_left(P, idxL, idxR, nums) for (P = 0; idxL <= idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
+#define _merge_N_from_left(N, idxL, idxR, nums) for (N = 0; idxL <= idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
+
 int maxSubArray(int* nums, int numsSize)
 {
     int idxL = 0;
@@ -19,7 +22,7 @@ int maxSubArray(int* nums, int numsSize)
     
     /* Get ride of Left N */
     if (nums[idxL] < 0)
-        for (max = nums[idxL++]; idxL < idxR && nums[idxL] <= 0; idxL++)
+        for (max = nums[idxL++]; idxL <= idxR && nums[idxL] <= 0; idxL++)
             if (max < nums[idxL])
                 max = nums[idxL];
     
@@ -60,11 +63,10 @@ int maxSubArray(int* nums, int numsSize)
             P1 = P2;
         }
     } while (idxL < idxR);
-    
-    if (idxW == 0)      //---------------- Answer of all merged string
-        return P1;
-    else
-        nums[idxW] = P2;
+    nums[idxW] = P1;
+
+    if (idxW == 0)      //---------------- Answer of all P merged string
+        return P1;      
     
     /*********************************************************************
      * Now the string is PNPNPNPNP....
@@ -87,4 +89,3 @@ int maxSubArray(int* nums, int numsSize)
     
     return max;
 }
-
