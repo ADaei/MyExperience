@@ -1,14 +1,90 @@
 https://leetcode.com/tag/tree/
 https://leetcode.com/tag/dynamic-programming/
 
-    https://leetcode.com/problems/maximum-subarray/
-    Solution Idea (NOT verified)
-    1. Skip continueously N at HEAD & TAIL
-        -NOTE: save max N for answer of all-negative string
-    2. Merge all continueously N/P, to be a P/PNP/PNPNP/... string
-        -Controversial : Is this a nessary step ?
-    3. For all PNP, if both P add N > 0, merge PNP into P
-        -Recursively do this because some N could be merge after other N merged.
-        -Be careful to termination condition
-    4. Find the largest P in the string.
+https://leetcode.com/problems/maximum-subarray/
+#define _merge_P_from_left(P, idxL, idxR, nums) for (P = 0; idxL < idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
+#define _merge_N_from_left(N, idxL, idxR, nums) for (N = 0; idxL < idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
+
+int maxSubArray(int* nums, int numsSize)
+{
+    int idxL = 0;
+    int idxR = numsSize-1;
+    int idxW = 0;
+    int max;
+    int P1, P2, N;
+
+    /*********************************************************************
+     * Get ride of continuously N at left most and right most
+     *********************************************************************/
+    
+    /* Get ride of Left N */
+    if (nums[idxL] < 0)
+        for (max = nums[idxL++]; idxL < idxR && nums[idxL] <= 0; idxL++)
+            if (max < nums[idxL])
+                max = nums[idxL];
+    
+    /* Get ride of Right N */
+    if (nums[idxR] < 0)
+        for (; idxL < idxR && nums[idxL] <= 0; idxR);
+
+    
+    if (idxL > idxR)   //---------------- Answer of all N/0 string
+        return max;
+    else if (idxL == idxR)
+        return nums[idxL];
+
+    /*********************************************************************
+     * Now the string is in following format (n >= 0):
+     *      P*a + (N*b + P*c)*n
+     *      n*(P*c + N*b) + P*a
+     * Merge continuously N/P from left, and merge PNP if possible
+     *********************************************************************/
+    
+    /* Get P1 */
+    _merge_P_from_left(P1, idxL, idxR, nums);
+    if (idxL >= idxR)   //---------------- Answer of NPN string
+        return P1;
+    
+    /* Merge PNP from Left and record from nums[0] */
+    do
+    {
+        _merge_N_from_left(N, idxL, idxR, nums);
+        _merge_P_from_left(P2, idxL, idxR, nums);
+        
+        if ((P1 + N) > 0 && (P2 + N) > 0)
+            P1 += N+P2;
+        else
+        {
+            nums[idxW++] = P1;
+            nums[idxW++] = N;
+            P1 = P2;
+        }
+    } while (idxL < idxR);
+    
+    if (idxW == 0)      //---------------- Answer of all merged string
+        return P1;
+    else
+        nums[idxW] = P2;
+    
+    /*********************************************************************
+     * Now the string is PNPNPNPNP....
+     * Merge PNP from right, and find answer
+     *********************************************************************/
+    for (P2=nums[idxW--], max=P2; idxW >= 0;)
+    {
+        N = nums[idxW--];
+        P1 = nums[idxW--];
+        
+        if ((P1 + N) > 0 && (P2 + N) > 0)
+            P2 += N+P1;
+        else
+        {
+            if (max < P2) {max = P2;}
+            P2 = P1;
+        }
+    }
+    if (max < P2) {max = P2;}
+    
+    return max;
+}
 
