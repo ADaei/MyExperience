@@ -2,105 +2,17 @@ https://leetcode.com/tag/tree/
 https://leetcode.com/tag/dynamic-programming/
 
 https://leetcode.com/problems/maximum-subarray/
-#define _merge_P_from_left(nums, idxL, idxR, P) for (P = 0; idxL <= idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
-#define _merge_N_from_left(nums, idxL, idxR, N) for (N = 0; idxL <= idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
-
-bool mergePNPN(int* P1, int* N1, int* P2, int* N2)
-{
-    if ((*N1 + *P2) < 0 && (*P2 + *N2) < 0)
-    {
-        /* P+NPN merge to P+N */
-        *N1 += *P2 + *N2;
-        return true;
-    }            
-    else if ((*P1 + *N1) > 0 && (*N1 + *P2) > 0)
-    {
-        /* PNP+N merge to P+N */
-        *P1 += *N1 + *P2;
-        *N1 = *N2;
-        return true;
-    }
-    return false;
-}
-
-void findNext(int* nums, int* idxL, int* idxR, int* P1, int* N1, int *Px, bool* PxIsCont)
-{
-    int P2, N2;
-
-    do
-    {   /* Merge PNP from left */
-        _merge_P_from_left(nums, (*idxL), (*idxR), P2)
-        _merge_N_from_left(nums, (*idxL), (*idxR), N2)
-
-        if (!mergePNPN(P1, N1, &P2, &N2))
-        {
-            if ((*idxL) <= (*idxR))
-            {
-                /* merge END, process next substring */
-                findNext(nums, idxL, idxR, &P2, &N2, Px, PxIsCont);
-                if ((*P1 + *N1) > 0 && (*N1 + P2) > 0)
-                {
-                    *P1 += *N1 + P2;
-                    if (*PxIsCont && (*P1 + N2) > 0 && (N2 + *Px) > 0)
-                    {
-                        *P1 += N2 + *Px;
-                        *Px = 0;
-                    }
-                }
-                else if (*Px < P2)
-                {
-                    *Px = P2;
-                    *PxIsCont = true;
-                }
-                else
-                {
-                    *PxIsCont = false;
-                }
-                return;
-            }
-            else
-            {
-                /* end of string */
-                *Px = P2;
-                *PxIsCont = true;
-                return;
-            }         
-        }
-    } while ((*idxL) <= (*idxR));
-
-    return;
-}
-
 int maxSubArray(int* nums, int numsSize)
 {
-    int idxL = 0;
-    int idxR = numsSize-1;
-    int maxN;
-    int P1, N1, Px = 0;
-    bool PxIsCont = false;
-
-    /*********************************************************************
-     * Get ride of continuously N at left most and right most
-     *********************************************************************/
-    
-    /* Get ride of Left N */
-    if (nums[idxL] <= 0)
-        for (maxN = nums[idxL++]; idxL <= idxR && nums[idxL] <= 0; idxL++)
-            if (maxN < nums[idxL])
-                maxN = nums[idxL];
- 
-    if (idxL > idxR)   //---------------- Answer of all N/0 string
-        return maxN;
-
-    _merge_P_from_left(nums, idxL, idxR, P1)
-    _merge_N_from_left(nums, idxL, idxR, N1)
-    if (idxL > idxR)
-        return P1;
-        
-    findNext(nums, &idxL, &idxR, &P1, &N1, &Px, &PxIsCont);
-    
-    if (PxIsCont && (P1 + N1) > 0 && (N1 + Px) > 0)
-        return (P1 + N1 + Px);
-    else
-        return (P1 > Px) ? P1 : Px;
+    int res = nums[0];
+    int curr = nums[0];
+    for(int i = 1; i < numsSize; i++)
+    {
+        curr += nums[i];
+        if (curr < 0 || nums[i] > curr)
+            curr = nums[i];
+        if (res < curr)
+            res = curr;
+    }
+    return res;        
 }
