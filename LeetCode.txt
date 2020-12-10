@@ -2,90 +2,68 @@ https://leetcode.com/tag/tree/
 https://leetcode.com/tag/dynamic-programming/
 
 https://leetcode.com/problems/maximum-subarray/
-#define _merge_P_from_left(P, idxL, idxR, nums) for (P = 0; idxL < idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
-#define _merge_N_from_left(N, idxL, idxR, nums) for (N = 0; idxL < idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
+#define _merge_P_from_left(nums, idxL, idxR, P) for (P = 0; idxL <= idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
+#define _merge_N_from_left(nums, idxL, idxR, N) for (N = 0; idxL <= idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
 
-#define _merge_P_from_left(P, idxL, idxR, nums) for (P = 0; idxL <= idxR && nums[idxL] >= 0; idxL++) {P += nums[idxL];}
-#define _merge_N_from_left(N, idxL, idxR, nums) for (N = 0; idxL <= idxR && nums[idxL] <= 0; idxL++) {N += nums[idxL];}
+void findMax(int* nums, int* idxL, int* idxR, int *myContP, int* myDiscontPMax)
+{
+    int N, P;
+    int nextDiscontPMax;
+    
+    do
+    {   /* Merge PNP from left */
+        _merge_N_from_left(nums, (*idxL), (*idxR), N)
+        _merge_P_from_left(nums, (*idxL), (*idxR), (*myDiscontPMax))
+            
+        if ((*myContP + N) > 0 && (N + *myDiscontPMax) > 0)
+        {
+            *myContP += (N + *myDiscontPMax);
+            *myDiscontPMax = 0;
+        }
+        else
+            break;
+    } while ((*idxL) <= (*idxR));
+    
+    if ((*idxL) <= (*idxR))
+    {
+        findMax(nums, idxL, idxR, myDiscontPMax, &nextDiscontPMax);
+        if ((*myContP + N) > 0 && (N + *myDiscontPMax) > 0)
+        {
+            *myContP += (N + *myDiscontPMax);
+            *myDiscontPMax = nextDiscontPMax;
+        }
+        else if (*myDiscontPMax < nextDiscontPMax)
+            *myDiscontPMax = nextDiscontPMax;
+    }
+
+    return;
+}
 
 int maxSubArray(int* nums, int numsSize)
 {
     int idxL = 0;
     int idxR = numsSize-1;
-    int idxW = 0;
-    int max;
-    int P1, P2, N;
+    int maxN;
+    int myContP, myDiscontPMax;
 
     /*********************************************************************
      * Get ride of continuously N at left most and right most
      *********************************************************************/
     
     /* Get ride of Left N */
-    if (nums[idxL] < 0)
-        for (max = nums[idxL++]; idxL <= idxR && nums[idxL] <= 0; idxL++)
-            if (max < nums[idxL])
-                max = nums[idxL];
-    
-    /* Get ride of Right N */
-    if (nums[idxR] < 0)
-        for (; idxL < idxR && nums[idxL] <= 0; idxR);
-
-    
+    if (nums[idxL] <= 0)
+        for (maxN = nums[idxL++]; idxL <= idxR && nums[idxL] <= 0; idxL++)
+            if (maxN < nums[idxL])
+                maxN = nums[idxL];
+ 
     if (idxL > idxR)   //---------------- Answer of all N/0 string
-        return max;
-    else if (idxL == idxR)
-        return nums[idxL];
+        return maxN;
 
-    /*********************************************************************
-     * Now the string is in following format (n >= 0):
-     *      P*a + (N*b + P*c)*n
-     *      n*(P*c + N*b) + P*a
-     * Merge continuously N/P from left, and merge PNP if possible
-     *********************************************************************/
-    
-    /* Get P1 */
-    _merge_P_from_left(P1, idxL, idxR, nums);
-    if (idxL >= idxR)   //---------------- Answer of NPN string
-        return P1;
-    
-    /* Merge PNP from Left and record from nums[0] */
-    do
-    {
-        _merge_N_from_left(N, idxL, idxR, nums);
-        _merge_P_from_left(P2, idxL, idxR, nums);
+    _merge_P_from_left(nums, idxL, idxR, myContP)
+    if (idxL > idxR)
+        return myContP;
         
-        if ((P1 + N) > 0 && (P2 + N) > 0)
-            P1 += N+P2;
-        else
-        {
-            nums[idxW++] = P1;
-            nums[idxW++] = N;
-            P1 = P2;
-        }
-    } while (idxL < idxR);
-    nums[idxW] = P1;
-
-    if (idxW == 0)      //---------------- Answer of all P merged string
-        return P1;      
+    findMax(nums, &idxL, &idxR, &myContP, &myDiscontPMax);
     
-    /*********************************************************************
-     * Now the string is PNPNPNPNP....
-     * Merge PNP from right, and find answer
-     *********************************************************************/
-    for (P2=nums[idxW--], max=P2; idxW >= 0;)
-    {
-        N = nums[idxW--];
-        P1 = nums[idxW--];
-        
-        if ((P1 + N) > 0 && (P2 + N) > 0)
-            P2 += N+P1;
-        else
-        {
-            if (max < P2) {max = P2;}
-            P2 = P1;
-        }
-    }
-    if (max < P2) {max = P2;}
-    
-    return max;
+    return (myContP > myDiscontPMax) ? myContP : myDiscontPMax;
 }
