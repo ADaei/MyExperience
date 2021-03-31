@@ -1,0 +1,9 @@
+[Experence]
+1. Wi-Fi 6 (11ax) TRX Path study
+2. Beamform Debug (11ac/az NDPA, action no ack)
+3. 11az (FTM + LMR)
+4. BLE
+
+[Joined Project]
+AP: Citril, cancelled by marketing)
+STA: Redfinch
